@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Rental</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Delete Rental</h1>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Are you sure you want to delete the rental for <strong>{{ rental.drone.brand }} {{ rental.drone.model }}</strong> from <strong>{{ rental.start_time|date:"Y-m-d H:i" }}</strong> to <strong>{{ rental.end_time|date:"Y-m-d H:i" }}</strong>?</p>
+                        <form action="{% url 'delete_rental' rental.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <a href="{% url 'my_rentals' %}" class="btn btn-secondary mt-3">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
