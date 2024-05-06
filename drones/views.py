@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.db import models
 from datetime import datetime
 
-
 # @login_required
 def list_drones(request):
     search_query = request.GET.get('search', '')

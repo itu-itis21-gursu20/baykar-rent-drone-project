@@ -3,37 +3,39 @@ from django.contrib.auth import login as auth_login
 from .forms import SignUpForm, LoginForm
 from django.contrib import messages
 
-
+# View for handling user sign-up
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            # Optionally, you can add a message that tells the user the signup was successful
+        if form.is_valid():  # Check if form data is valid
+            user = form.save()  # Save the new user to the database
+            # Display a success message
             messages.success(request, 'Account created successfully! Please log in.')
-            return redirect('/login')  # Redirect users to the login page
+            return redirect('/login')  # Redirect to the login page after successful signup
         else:
-            # If form is not valid, you might want to show some error messages
+            # Display an error message if form is not valid
             messages.error(request, 'Please correct the error below.')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form})  # Render the signup page with the form
 
+# View for handling user login
 def login(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
-        if form.is_valid():
+        if form.is_valid():  # Check if form data is valid
             user = form.get_user()
-            auth_login(request, user)
-            return redirect('/drones/drones')  # Kullanıcıyı home sayfasına yönlendir
+            auth_login(request, user)  # Log the user in
+            return redirect('/drones/drones')  # Redirect to a drones listing page
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})  # Render the login page with the form
 
+# View for handling user logout
 def logout_view(request):
     if 'confirm_logout' in request.POST:
-        logout(request)
-        return redirect('/login')
-    return render(request, 'logout.html', {})
+        logout(request)  # Log the user out
+        return redirect('/login')  # Redirect to the login page after logout
+    return render(request, 'logout.html', {})  # Render the logout confirmation page
 
 
