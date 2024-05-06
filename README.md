@@ -60,7 +60,9 @@ python manage.py migrate
 
 # Start the development server
 python manage.py runserver
-Navigate to http://127.0.0.1:8000/ in your web browser.
+
+The program starts at http://127.0.0.1:8000/ in your web browser
+If you want to enter administration system of program, you should enter http://127.0.0.1:8000/admin/ url.
 
 # Running Tests
 python manage.py test
